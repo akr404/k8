@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs-arvind
+  labels:
+    name: rs-label-arvind
+    type: back-end
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        name: rs-label-arvind
+        type: back-end
+    spec:
+      containers:
+        - name: nginx-demo
+          image: nginx
+  replicas: 2
+  selector:
+    matchLabels:
+      name: rs-label-arvind
+      type: back-end

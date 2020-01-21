@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    name: rs-label
+    type: back-end
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        name: rs-label
+        type: back-end
+    spec:
+      tolerations:
+      - key: "taintdemo"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      containers:
+      - name: nginx-demo
+        image: nginx:1.17
+      nodeSelector:
+        type: back-end
+  replicas: 4
+  selector:
+    matchLabels:
+      name: rs-label
+      type: back-end    
