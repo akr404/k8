@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins
+  labels:
+    name: arao-label
+    type: back-end
+spec:
+  containers:
+  - image: jenkins/jenkins:lts
+    name: jenkins
+    volumeMounts:
+    - mountPath: /var/jenkins_home
+      name: jenkins-home
+  volumes:
+  - name: jenkins-home
+    persistentVolumeClaim:
+      claimName:  myvolclaim-arao
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkinsnservice
+spec:
+  type: NodePort
+  ports:
+  - targetPort: 8080
+    port: 8080
+  selector: 
+    name: arao-label
+    type: back-end
+

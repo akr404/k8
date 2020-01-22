@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: arao-demo
+  labels:
+    name: arao-label
+    type: back-end
+spec:
+  containers:
+  - name: envar-demo-container
+    image: gcr.io/google-samples/node-hello:1.0
+    env:
+    - name: GREETING
+      value: "Hello from the environment"
+    - name: FAIRWELL
+      value: "such a sweet"
+    - name: NAME
+      value: "kubernetes"
+    command: ["echo"]
+    args: ["$(GREETING) $(FAIRWELL) $(NAME)"]
