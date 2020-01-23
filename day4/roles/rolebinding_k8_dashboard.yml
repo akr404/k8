@@ -1,0 +1,36 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  #clusterRoles and not namespaced 
+  name: arao-role
+  labels:
+    k8s-app: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+rules:
+  - apiGroups: [""] # "" indicates the code API group
+    resources: ["pods"]
+    verbs: ["get", "update", "list"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: user-arao
+  labels:
+    k8s-app: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: user-arao-binding
+  labels:
+    k8s-app: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: arao-role
+subjects:
+  - kind: ServiceAccount
+    name: user-arao
+    namespace: kubernetes-dashboard
+

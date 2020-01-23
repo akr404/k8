@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  #clusterRoles and not namespaced 
+  name: secret-reader-arao
+rules:
+  - apiGroups: [""] # "" indicates the code API group
+    resources: ["secrets"]
+    verbs: ["get", "watch", list]

@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: configmap-updater
+  namespace: arvind
+rules:
+  - apiGroups: [""] # "" indicates the code API group
+    resources: ["configmaps"]
+    resourceNames: ["my-configmap"]
+    verbs: ["update", "get"]
+
