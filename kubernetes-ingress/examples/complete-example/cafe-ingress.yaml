@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+spec:
+  tls:
+  - hosts:
+    - ec2-54-198-129-100.compute-1.amazonaws.com
+    secretName: cafe-secret
+  rules:
+  - host: ec2-54-198-129-100.compute-1.amazonaws.com
+    http:
+      paths:
+      - path: /tea
+        backend:
+          serviceName: tea-svc
+          servicePort: 80
+      - path: /lassi
+        backend:
+          serviceName: lassi-svc
+          servicePort: 80
+      - path: /coffee
+        backend:
+          serviceName: coffee-svc
+          servicePort: 80
